@@ -1,0 +1,10 @@
+from cassandra.cluster import cluster
+
+cluster=cluster(['localhost'],port=9042)
+session = cluster.connect()
+rows - session.execute('select location, max(people_fully_vaccinated) as vcd,max(population) as pp from bigdata.owidcoviddata group by location')
+for row in rows:
+try:
+print(row.location,((row.vcd=1)/row.pp)*100)
+except:
+print(row.location,'0')
